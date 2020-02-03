@@ -1,0 +1,41 @@
+version: '3.7'
+services:
+  db_cft:
+    container_name: cft_db
+    image: mysql:5.7.28
+    environment:
+      MYSQL_ROOT_PASSWORD: Adm1n.2020
+      MYSQL_DATABASE: credifacil
+      MYSQL_USER: user_credifacil
+      MYSQL_PASSWORD: user.credifacil
+    ports:
+      - 33060:3306
+    volumes:
+      - ./database/schemas:/var/lib/mysql
+    networks:
+      cft_net:
+        ipv4_address: 172.1.1.9
+
+  app_cft:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: cft_app
+    depends_on:
+      - db_cft
+    ports:
+      - 8000:80
+    volumes:
+      - ./credifacil:/var/www
+      - ./credifacil/public:/var/www/html
+    networks:
+      cft_net:
+        ipv4_address: 172.1.1.10
+networks:
+  cft_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        -
+          subnet: 172.1.1.0/24
