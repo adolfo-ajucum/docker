@@ -2,13 +2,14 @@ version: '3.7'
 services:
   db_cft:
     container_name: cft_db
-    image: mysql:5.7.28
+    # image: mysql:5.7.28
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: Adm1n.2020
       MYSQL_DATABASE: credifacil
       MYSQL_USER: user_credifacil
       MYSQL_PASSWORD: user.credifacil
+      TZ: America/Guatemala
     ports:
       - 33060:3306
     volumes:
