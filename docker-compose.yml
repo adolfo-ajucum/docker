@@ -3,6 +3,9 @@ services:
   db_cft:
     container_name: cft_db
     # image: mysql:5.7.28
+    build:
+      context: ./
+      dockerfile: Dockerfilebd
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: Adm1n.2020
